@@ -9,7 +9,28 @@ export default {
   methods: {
     closeModal() {
       document.querySelector('#modal').remove();
+    },
+
+    checkCookies() {
+      // check the cookie exist
+      if (document.cookie.split(';').some((item) => item.trim().startsWith('visited='))) {
+
+        console.log("Ben tornato!");
+        this.closeModal();
+
+      } else {
+        console.log("Benvenuto!");
+
+        // set new cookie
+        let endDate = new Date();
+        endDate.setFullYear(endDate.getFullYear() + 1); // the cookie expire over one year
+        document.cookie = "visited=true; expires=" + endDate.toUTCString() + "; path=/";
+      }
     }
+  },
+
+  mounted() {
+    this.checkCookies();
   }
 
 
